@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: py-flask-kubernetes
-        image: ghcr.io/sainithesh21/py-flask-kubernetes:latest 
+        image: ghcr.io/sainithesh/py-flask-kubernetes:latest 
         imagePullPolicy: Always
         ports:
         - containerPort: 8000
