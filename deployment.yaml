@@ -19,7 +19,7 @@ spec:
         image: ghcr.io/sainithesh/py-flask-kubernetes:latest 
         imagePullPolicy: Always
         ports:
-        - containerPort: 3000
+        - containerPort: 8000
         resources:
             limits:
               ephemeral-storage: 256M
@@ -43,8 +43,8 @@ spec:
     app: py-flask-kubernetes
   ports:
   - protocol: "TCP"
-    port: 3000
-    targetPort: 3000
+    port: 8000
+    targetPort: 8000
 
 
 ---
@@ -56,7 +56,7 @@ spec:
   gateway: kyma-gateway.kyma-system.svc.cluster.local
   service:
     name: py-flask-kubernetes
-    port: 3000
+    port: 8000
     host: py-flask-kubernetes
   rules:
     - path: /.*

@@ -1,7 +1,7 @@
 from flask import Flask, jsonify
 import time
 
-PORT = 3000
+PORT = 8000
 MESSAGE = "Hello, world!\n"
 
 app = Flask(__name__)
