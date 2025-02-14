@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: py-flask-kubernetes
+  labels:
+    app: py-flask-kubernetes
+spec:
+  selector:
+    matchLabels:
+      app: py-flask-kubernetes
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: py-flask-kubernetes
+    spec:
+      containers:
+      - name: py-flask-kubernetes
+        image: ghcr.io/sainithesh/py-flask-kubernetes:main 
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        resources:
+            limits:
+              ephemeral-storage: 256M
+              memory: 256M
+              cpu: 100m
+            requests:
+              ephemeral-storage: 256M
+              memory: 256M
+              cpu: 100m
+      imagePullSecrets:
+      - name: py-regcred
+status: {}
+        
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: py-flask-kubernetes
+spec:
+  selector:
+    app: py-flask-kubernetes
+  ports:
+  - protocol: "TCP"
+    port: 8081
+    targetPort: 8080
+
+
+---
+apiVersion: gateway.kyma-project.io/v1alpha1
+kind: APIRule
+metadata:
+  name: py-flask-kubernetes
+spec:
+  gateway: kyma-gateway.kyma-system.svc.cluster.local
+  service:
+    name: py-flask-kubernetes
+    port: 8081
+    host: py-flask-kubernetes
+  rules:
+    - path: /.*
+      methods: ["GET"]
+      accessStrategies:
+        - handler: noop
+          config: {}
