@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def root():
-    return jsonify({"App Status" : "Running 23"})
+    return jsonify({"App Status" : "Running 24"})
 
 @app.route("/getTime")
 def getTime():
